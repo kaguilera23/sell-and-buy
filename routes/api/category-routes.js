@@ -19,10 +19,8 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Products
   Category.findOne(
     {
-      where: { 
-        id: req.params.id 
-      },
-      include: [{ model: Product }],
+      where: {id: req.params.id},
+      include: [{ model: Product }]
     }
   ).then((data) => {
     res.send(data);
@@ -54,7 +52,7 @@ router.put('/:id', (req, res) => {
       }
     }
   ).then((updatedCategory) => {
-    res.send(update)
+    res.json(updatedCategory)
   })
 });
 
@@ -67,7 +65,7 @@ router.delete('/:id', (req, res) => {
       }
     }
   ).then((deletedCategory) => {
-    res.send(deletedCategory)
+    res.json(deletedCategory)
   })
 });
 

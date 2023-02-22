@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   Tag.findOne( {
-    where: req.params.id,
+    where: {id: req.params.id},
     include: [{model: Product}]
   }).then((data) => {
     res.send(data)
@@ -40,7 +41,14 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update().then((updatedTag) => {
+  Tag.update(
+    {
+      tag_name: req.body.tag_name
+    },
+    {
+      where: {id: req.params.id}
+    }
+  ).then((updatedTag) => {
     res.send(updatedTag)
   })
 });
@@ -52,7 +60,7 @@ router.delete('/:id', (req, res) => {
       where: {id: req.params.id}
     }
   ).then((deletedTag) => {
-    res.send(deletedTag)
+    res.json(deletedTag)
   })
 });
 

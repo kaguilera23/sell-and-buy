@@ -25,7 +25,9 @@ router.get('/:id', (req, res) => {
       where: {id: req.params.id},
       include: [{model: Category}, {model: Tag}]
     }
-  )
+  ).then((data) => {
+    res.send(data)
+  })
 });
 
 // create new product
@@ -110,7 +112,9 @@ router.delete('/:id', (req, res) => {
         id: req.params.id
       }
     }
-  )
+  ).then((data) => {
+    res.json(data)
+  })
 });
 
 module.exports = router;
